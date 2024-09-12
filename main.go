@@ -263,10 +263,10 @@ func deposit(c *gin.Context) {
 		Amount int `json:"amount"`
 	}
 
-	if err := c.ShouldBindJSON(&amount); err != nil || amount.Amount <= 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid deposit amount"})
-		return
-	}
+	// if err := c.ShouldBindJSON(&amount); err != nil || amount.Amount <= 0 {
+	// 	c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid deposit amount"})
+	// 	return
+	// }
 
 	query := "UPDATE accounts SET balance = balance + ? WHERE username = ?"
 	_, err := db.Exec(query, amount.Amount, username)
@@ -369,5 +369,5 @@ func main() {
 
 	protected.GET("/accounts", getAccounts)
 
-	r.Run(":8080")
+	r.Run(":8081")
 }
